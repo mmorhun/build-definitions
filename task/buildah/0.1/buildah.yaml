@@ -184,6 +184,7 @@ spec:
 
       # Expose base image digests
       buildah images --format '{{ .Name }}:{{ .Tag }}@{{ .Digest }}' | grep -v $IMAGE > $(results.BASE_IMAGES_DIGESTS.path)
+      echo "new changes"
 
     securityContext:
       capabilities:
