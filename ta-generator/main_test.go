@@ -24,7 +24,10 @@ func TestGolden(t *testing.T) {
 
 	for _, dir := range dirs {
 		t.Run(dir.Name(), func(t *testing.T) {
-			task, err := readTask(path.Join("golden", dir.Name(), "base.yaml"))
+			task, err := loadTask(path.Join("golden", dir.Name(), "base.yaml"))
+			if errors.Is(err, os.ErrNotExist) {
+				task, err = loadTask(path.Join("golden", dir.Name(), "kustomization.yaml"))
+			}
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -36,6 +39,7 @@ func TestGolden(t *testing.T) {
 
 			switch dir.Name() {
 			case "buildah":
+			case "kustomized":
 				image = "" // force resolve
 			case "git-clone":
 				image = "quay.io/redhat-appstudio/build-trusted-artifacts:latest@sha256:existing" // use existing
