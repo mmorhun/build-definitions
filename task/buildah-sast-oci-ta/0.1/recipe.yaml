@@ -1,5 +1,5 @@
 ---
-base: ../../buildah/0.2/buildah.yaml
+base: ../../buildah-sast/0.2/kustomization.yaml
 removeParams:
   - BUILDER_IMAGE
 add:
